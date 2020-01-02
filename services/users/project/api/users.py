@@ -99,3 +99,4 @@ class UsersList(Resource):
 api.add_resource(UsersPing, '/users/ping')
 api.add_resource(Users, '/users/<user_id>')
 api.add_resource(UsersList, '/users')
+
