@@ -130,3 +130,7 @@ dmypy.json
 
 # PyCharm Stuff
 .idea
+
+# node stuff
+__snapshots__
+package-lock.json
