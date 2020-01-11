@@ -134,3 +134,4 @@ dmypy.json
 # node stuff
 __snapshots__
 package-lock.json
+node_modules
