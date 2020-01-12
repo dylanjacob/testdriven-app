@@ -13,6 +13,10 @@ import UserStatus from "./components/UserStatus";
 class App extends Component {
     constructor() {
         super();
+        let isAuthenticated = false;
+        if (window.localStorage.getItem('authToken')) {
+            isAuthenticated = true;
+        }
         this.state = {
             users: [],
             username: '',
@@ -23,7 +27,7 @@ class App extends Component {
                 email: '',
                 password: '',
             },
-            isAuthenticated: false,
+            isAuthenticated: isAuthenticated,
         };
         this.addUser = this.addUser.bind(this);
         this.handleChange = this.handleChange.bind(this);

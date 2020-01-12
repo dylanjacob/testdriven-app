@@ -1,12 +1,12 @@
 describe('Index', () => {
-    it('users should be able to view the "/" page', () => {
+    it('should display the page correctly if a user is not logged in', () => {
         cy
             .visit('/')
             .get('h1').contains('All Users')
-            .get('thead > tr').children(0).contains('ID')
-            .get('thead > tr').children(1).contains('Email')
-            .get('thead > tr').children(2).contains('Username')
-            .get('thead > tr').children(3).contains('Active')
-            .get('thead > tr').children(4).contains('Admin');
+            .get('.navbar-burger').click()
+            .get('a').contains('User Status').should('not.be.visible')
+            .get('a').contains('Log Out').should('not.be.visible')
+            .get('a').contains('Register')
+            .get('a').contains('Log In');
     });
 });
