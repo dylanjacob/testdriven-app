@@ -2,13 +2,18 @@ const randomstring = require('randomstring');
 
 const username = randomstring.generate();
 const email = `${username}@test.com`;
+const password = 'greatherthanten';
 
 describe('Login', () => {
     it('should display the sign in form', () => {
-       cy
-           .visit('/login')
-           .get('h1').contains('Log In')
-           .get('form');
+        cy
+            .visit('/login')
+            .get('h1').contains('Log In')
+            .get('form')
+            .get('input[disabled]')
+            .get('.validation-list')
+            .get('.validation-list > .error').first().contains(
+                'Email is required.');
     });
     it('should allow a user to sign in', () => {
         // register user
@@ -16,7 +21,7 @@ describe('Login', () => {
             .visit('/register')
             .get('input[name="username"]').type(username)
             .get('input[name="email"]').type(email)
-            .get('input[name="password"]').type('test')
+            .get('input[name="password"]').type(password)
             .get('input[type="submit"]').click();
 
         // log a user out
@@ -27,7 +32,7 @@ describe('Login', () => {
         cy
             .get('a').contains('Log In').click()
             .get('input[name="email"]').type(email)
-            .get('input[name="password"]').type('test')
+            .get('input[name="password"]').type(password)
             .get('input[type="submit"]').click()
             .wait(100);
 
@@ -54,7 +59,7 @@ describe('Login', () => {
         // assert '/logout' is displayed properly
         cy.get('p').contains('You are now logged out');
         cy.get('.navbar-menu').within(() => {
-           cy
+            cy
                 .get('.navbar-item').contains('User Status').should('not.be.visible')
                 .get('.navbar-item').contains('Log Out').should('not.be.visible')
                 .get('.navbar-item').contains('Log In')
