@@ -14,7 +14,7 @@ dev() {
   docker-compose up -d --build
   docker-compose exec users python manage.py test
   inspect $? users
-  docker-compose users flake8 project
+  docker-compose exec users flake8 project
   inspect $? users-lint
   docker-compose exec client npm test -- --coverage -u
   inspect $? client
