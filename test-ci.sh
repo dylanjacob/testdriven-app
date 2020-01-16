@@ -16,7 +16,7 @@ dev() {
   inspect $? users
   docker-compose exec users flake8 project
   inspect $? users-lint
-  docker-compose exec client npm test -- --coverage -u
+  docker-compose exec client npm run coverage
   inspect $? client
   docker-compose down
 }
