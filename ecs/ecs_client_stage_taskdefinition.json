@@ -1,0 +1,25 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "%s.dkr.ecr.us-west-2.amazonaws.com/testdriven-client:staging",
+      "essential": true,
+      "memoryReservation": 300,
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "testdriven-client-stage",
+          "awslogs-region": "us-west-2"
+        }
+      }
+    }
+  ],
+  "family": "testdriven-client-stage-td"
+}
