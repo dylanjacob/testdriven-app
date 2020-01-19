@@ -28,7 +28,7 @@
         {
           "name": "SECRET_KEY",
           "value": "my_precious"
-        },
+        }
       ],
       "links": [
         "users-db"
