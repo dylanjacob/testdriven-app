@@ -8,6 +8,9 @@ then
     export REACT_APP_USERS_SERVICE_URL="http://testdriven-staging-alb-245689886.us-west-2.elb.amazonaws.com"
   elif [[ "$TRAVIS_BRANCH" == "production" ]]; then
     export DOCKER_ENV=prod
+    export REACT_APP_USERS_SERVICE_URL="http://testdriven-production-alb-2011661069.us-west-2.elb.amazonaws.com/"
+    export DATABASE_URL="$AWS_RDS_URI"
+    export SECRET_KEY="$PRODUCTION_SECRET_KEY"
   fi
 
   if [ "$TRAVIS_BRANCH" == "staging" ] || \
@@ -30,9 +33,11 @@ then
     docker tag $USERS:$COMMIT $REPO/$USERS:$TAG
     docker push $REPO/$USERS:$TAG
     # users db
-    docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
-    docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
-    docker push $REPO/$USERS_DB:$TAG
+    if [ "$TRAVIS_BRANCH" == "staging" ]; then
+      docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
+      docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
+      docker push $REPO/$USERS_DB:$TAG
+    fi
     # client
     docker build $CLIENT_REPO -t $CLIENT:$COMMIT -f Dockerfile-$DOCKER_ENV --build-arg REACT_APP_USERS_SERVICE_URL=$REACT_APP_USERS_SERVICE_URL
     docker tag $CLIENT:$COMMIT $REPO/$CLIENT:$TAG
