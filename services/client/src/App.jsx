@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import Form from "./components/forms/Form";
 import Logout from "./components/Logout";
 import UserStatus from "./components/UserStatus";
+import Footer from "./components/Footer";
 
 class App extends Component {
     constructor() {
@@ -119,6 +120,7 @@ class App extends Component {
                         </div>
                     </div>
                 </section>
+                <Footer/>
             </div>
         )
     };
