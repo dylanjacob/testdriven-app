@@ -16,6 +16,7 @@ describe('Register', () => {
                 'Username must be greater than 5 characters.');
     });
     it('should allow a user to register', () => {
+        // register user
         cy
             .visit('/register')
             .get('input[name="username"]').type(username)
@@ -23,6 +24,13 @@ describe('Register', () => {
             .get('input[name="password"]').type(password)
             .get('input[type="submit"]').click();
 
+        // assert user is redirected tot '/'
+        cy.get('.notification.is-success').contains('Welcome!');
+        cy.get('.navbar-burger').click();
+        cy.contains('Users').click();
+        // assert '/all-users' is rendered properly
+        cy.get('.navbar-burger').click();
+        cy.location().should((loc) => { expect(loc.pathname).to.eq('/all-users') });
         cy.contains('All Users');
         cy.contains(username);
         cy.get('.navbar-burger').click();
