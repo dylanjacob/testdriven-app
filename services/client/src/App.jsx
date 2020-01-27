@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import UsersList from "./components/UsersList";
 import About from "./components/About";
@@ -10,6 +10,7 @@ import Form from "./components/forms/Form";
 import Logout from "./components/Logout";
 import UserStatus from "./components/UserStatus";
 import Footer from "./components/Footer";
+import Exercises from "./components/Exercises";
 
 class App extends Component {
     constructor() {
@@ -80,7 +81,7 @@ class App extends Component {
                             <div className="column is-half">
                                 <Switch>
                                     <Route exact path='/' render={() => (
-                                        <p>something</p>
+                                        <Exercises isAuthenticated={this.state.isAuthenticated}/>
                                     )} />
                                     <Route exact path='/about' component={About}/>
                                     <Route exact path='/register' render={() => (
